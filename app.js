@@ -28,6 +28,11 @@ app.use(session({
 // Servir arquivos estáticos (CSS, imagens)
 app.use(express.static('public'));
 
+// Rota da página inicial
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
 // Usar rotas
 app.use('/', userRoutes);
 app.use('/posts', postRoutes);
