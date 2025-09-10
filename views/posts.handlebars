@@ -1,0 +1,16 @@
+<h2>Bem-vindo, {{user.nome}}</h2>
+<a href="/logout">Sair</a>
+
+<form action="/posts/create" method="POST">
+    <textarea name="content" placeholder="O que você está pensando?" required></textarea><br>
+    <button type="submit">Postar</button>
+</form>
+
+<h3>Postagens:</h3>
+{{#each posts}}
+<div class="post">
+    <strong>{{this.User.username}}</strong> disse:
+    <p>{{this.content}}</p>
+    <hr>
+</div>
+{{/each}}
