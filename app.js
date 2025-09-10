@@ -7,6 +7,12 @@ const session = require('express-session');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 
+//Importação do sequelize
+const sequelize = require('./config/database');
+const User = require('./models/User');
+const Post = require('./models/Post');
+
+
 // Criar app
 const app = express();
 
@@ -36,6 +42,18 @@ app.get('/', (req, res) => {
 // Usar rotas
 app.use('/', userRoutes);
 app.use('/posts', postRoutes);
+
+// Sincronizar modelos com o banco
+sequelize.sync({ force: false }) // force: true recria tabelas do zero
+    .then(() => {
+        console.log('Banco de dados sincronizado!');
+        // Iniciar servidor após sincronização
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando em http://localhost:3000`);
+        });
+    })
+    .catch(err => console.error('Erro ao sincronizar banco:', err));
+
 
 // Iniciar servidor
 const PORT = 3000;
