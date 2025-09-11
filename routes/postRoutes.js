@@ -29,4 +29,25 @@ router.post('/create', async (req, res) => {
     res.redirect('/posts');
 });
 
+// Editar publicação (formulário)
+router.get('/:id/edit', async (req, res) => {
+    const post = await Post.findByPk(req.params.id);
+    res.render('editPost', { post });
+});
+
+// Editar publicação (submit)
+router.post('/:id/edit', async (req, res) => {
+    await Post.update(
+        { conteudo: req.body.conteudo },
+        { where: { id: req.params.id } }
+    );
+    res.redirect('/posts');
+});
+
+// Deletar publicação
+router.post('/:id/delete', async (req, res) => {
+    await Post.destroy({ where: { id: req.params.id } });
+    res.redirect('/posts');
+});
+
 module.exports = router;

@@ -1,8 +1,11 @@
 /* --- Variáveis de cores --- */
 :root {
-    --primary-color: #3b5998; /* Azul do Facebook */
-    --secondary-color: #f0f2f5; /* Cinza claro para o fundo, mais suave */
-    --text-color: #1c1e21; /* Cor de texto mais escura para melhor contraste */
+    --primary-color: #3b5998;
+    /* Azul do Facebook */
+    --secondary-color: #f0f2f5;
+    /* Cinza claro para o fundo, mais suave */
+    --text-color: #1c1e21;
+    /* Cor de texto mais escura para melhor contraste */
     --border-color: #ddd;
     --success-color: #4CAF50;
     --error-color: #f44336;
@@ -22,7 +25,9 @@ body {
     box-sizing: border-box;
 }
 
-.container, .login-container, .register-container {
+.container,
+.login-container,
+.register-container {
     width: 90%;
     max-width: 450px;
     padding: 2.5rem;
@@ -38,7 +43,8 @@ body {
     margin-bottom: 2rem;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: var(--primary-color);
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -80,7 +86,9 @@ p {
 .btn-small {
     padding: 0.5rem 1rem;
     width: auto;
+    height: auto;
     font-size: 0.9rem;
+    text-align: center;
     margin-bottom: 0;
     text-decoration: none;
     background-color: var(--primary-color);
@@ -132,13 +140,15 @@ textarea {
     font-size: 0.9rem;
 }
 
-.signup-text a, .login-text a {
+.signup-text a,
+.login-text a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
 }
 
-.signup-text a:hover, .login-text a:hover {
+.signup-text a:hover,
+.login-text a:hover {
     text-decoration: underline;
 }
 
@@ -162,8 +172,10 @@ textarea {
     margin-bottom: 1rem;
 }
 
-.home-header h1, .home-header a {
-    margin: 0; /* Remove margens dos elementos */
+.home-header h1,
+.home-header a {
+    margin: 0;
+    /* Remove margens dos elementos */
 }
 
 .post-form {
@@ -196,6 +208,42 @@ textarea {
     margin: 1rem 0 0.5rem;
 }
 
+.post-actions .btn-small {
+    min-width: 90px;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    margin-right: 0;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.post-actions .btn-danger {
+    min-width: 90px;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    margin-right: 0;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.post-actions .btn-small,
+.post-actions .btn-danger {
+    border-radius: 8px;
+}
+
+.post-actions .btn-small:hover,
+.post-actions .btn-danger:hover {
+    box-shadow: 0 2px 8px rgba(59, 89, 152, 0.08);
+    transform: translateY(-2px);
+}
+
+
 /* --- Estilos da página de Registro --- */
 .register-container {
     width: 90%;
@@ -212,12 +260,17 @@ textarea {
 }
 
 .register-container form {
-    gap: 1.25rem; /* Aumenta o espaçamento entre os campos */
+    gap: 1.25rem;
+    /* Aumenta o espaçamento entre os campos */
 }
 
 /* --- Responsividade --- */
 @media (max-width: 600px) {
-    .container, .login-container, .home-container, .register-container {
+
+    .container,
+    .login-container,
+    .home-container,
+    .register-container {
         padding: 1.5rem;
     }
 }

@@ -11,11 +11,21 @@
     </form>
 
     <h3>Postagens:</h3>
+
     {{#each posts}}
     <div class="post">
-        <strong>{{this.User.username}}</strong> disse:
+        <strong>{{this.User.nome}}</strong> - {{formatDate this.createdAt}}
         <p>{{{nl2br this.content}}}</p>
-        <hr>
+        {{#if (eq ../user.id this.UserId)}}
+        <br><br>
+        <div class="post-actions">
+            <a href="/posts/{{this.id}}/edit"><button class="btn-small btn-danger">Editar</button></a>
+            <form action="/posts/{{this.id}}/delete" method="POST" style="display:inline;">
+                <button type="submit" class="btn-small btn-danger">Excluir</button>
+            </form>
+        </div>
+        {{/if}}
     </div>
     {{/each}}
+
 </div>

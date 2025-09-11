@@ -20,12 +20,23 @@ const app = express();
 const hbs = exphbs.create({
     defaultLayout: 'main',
     helpers: {
-        nl2br: function(text) {
+        nl2br: function (text) {
             if (text) {
                 return text.replace(/\n/g, '<br>');
             }
             return '';
-        }
+        },
+        formatDate: function (date) {
+            if (!date) return '';
+            const d = new Date(date);
+            const dia = String(d.getDate()).padStart(2, '0');
+            const mes = String(d.getMonth() + 1).padStart(2, '0');
+            const ano = d.getFullYear();
+            const hora = String(d.getHours()).padStart(2, '0');
+            const min = String(d.getMinutes()).padStart(2, '0');
+            return `${dia}/${mes}/${ano} ${hora}:${min}`;
+        },
+        eq: function (a, b) { return a === b; }
     }
 });
 
