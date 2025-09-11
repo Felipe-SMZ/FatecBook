@@ -1,16 +1,21 @@
-<h2>Bem-vindo, {{user.nome}}</h2>
-<a href="/logout">Sair</a>
+<div class="home-container">
+    <img src="/img/logo.png" alt="FatecBook Logo" class="logo">
+    <div class="home-header">
+        <h1>Bem-vindo, {{user.nome}}</h1>
+        <a href="/logout" class="btn-small">Sair</a>
+    </div>
 
-<form action="/posts/create" method="POST">
-    <textarea name="content" placeholder="O que você está pensando?" required></textarea><br>
-    <button type="submit">Postar</button>
-</form>
+    <form action="/posts/create" method="POST" class="post-form">
+        <textarea name="content" placeholder="O que você está pensando?" required></textarea>
+        <button type="submit" class="btn">Postar</button>
+    </form>
 
-<h3>Postagens:</h3>
-{{#each posts}}
-<div class="post">
-    <strong>{{this.User.username}}</strong> disse:
-    <p>{{this.content}}</p>
-    <hr>
+    <h3>Postagens:</h3>
+    {{#each posts}}
+    <div class="post">
+        <strong>{{this.User.username}}</strong> disse:
+        <p>{{{nl2br this.content}}}</p>
+        <hr>
+    </div>
+    {{/each}}
 </div>
-{{/each}}

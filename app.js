@@ -17,7 +17,19 @@ const Post = require('./models/Post');
 const app = express();
 
 // Configurar Handlebars
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
+const hbs = exphbs.create({
+    defaultLayout: 'main',
+    helpers: {
+        nl2br: function(text) {
+            if (text) {
+                return text.replace(/\n/g, '<br>');
+            }
+            return '';
+        }
+    }
+});
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 // Configurar Body Parser

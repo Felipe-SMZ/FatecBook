@@ -6,8 +6,19 @@ const User = require('../models/User');
 // Mostrar postagens
 router.get('/', async (req, res) => {
     if (!req.session.user) return res.redirect('/login');
-    const posts = await Post.findAll({ include: User, order: [['createdAt', 'DESC']] });
-    res.render('posts', { posts, user: req.session.user });
+
+    const posts = await Post.findAll({
+        include: {
+            model: User,
+            attributes: ['nome', 'username']
+        },
+        order: [['createdAt', 'DESC']]
+    });
+
+    // Converter os objetos Sequelize em plain objects
+    const plainPosts = posts.map(post => post.get({ plain: true }));
+
+    res.render('posts', { posts: plainPosts, user: req.session.user });
 });
 
 // Criar nova postagem
