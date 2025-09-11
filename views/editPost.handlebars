@@ -4,6 +4,7 @@
         <h2>Editar Publicação</h2>
         <a href="/posts" class="btn-small">Voltar</a>
     </div>
+    <p>ID do post: {{post.id}}</p>
     <form action="/posts/{{post.id}}/edit" method="POST" class="post-form">
         <textarea name="content" required>{{post.content}}</textarea>
         <button type="submit" class="btn">Salvar</button>

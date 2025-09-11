@@ -14,7 +14,7 @@
 
     {{#each posts}}
     <div class="post">
-        <strong>{{this.User.nome}}</strong> - {{formatDate this.createdAt}}
+        <strong>{{this.User.nome}}</strong> - {{formatDate this.updatedAt}}
         <p>{{{nl2br this.content}}}</p>
         {{#if (eq ../user.id this.UserId)}}
         <br><br>

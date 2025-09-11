@@ -32,13 +32,17 @@ router.post('/create', async (req, res) => {
 // Editar publicação (formulário)
 router.get('/:id/edit', async (req, res) => {
     const post = await Post.findByPk(req.params.id);
-    res.render('editPost', { post });
+    console.log('Post:', post);
+    if (!post) {
+        return res.redirect('/posts');
+    }
+    res.render('editPost', { post: post.get({ plain: true }) });
 });
 
 // Editar publicação (submit)
 router.post('/:id/edit', async (req, res) => {
     await Post.update(
-        { conteudo: req.body.conteudo },
+        { content: req.body.content },
         { where: { id: req.params.id } }
     );
     res.redirect('/posts');
