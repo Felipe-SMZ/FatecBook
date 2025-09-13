@@ -11,7 +11,21 @@ const postRoutes = require('./routes/postRoutes');
 const sequelize = require('./config/database');
 const User = require('./models/User');
 const Post = require('./models/Post');
+const Like = require('./models/Like');
+const Comment = require('./models/Comment');
 
+// Definir relacionamentos
+User.hasMany(Like);
+Like.belongsTo(User);
+
+Post.hasMany(Like);
+Like.belongsTo(Post);
+
+Post.hasMany(Comment);
+Comment.belongsTo(Post);
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
 // Criar app
 const app = express();
@@ -78,8 +92,5 @@ sequelize.sync({ force: false }) // force: true recria tabelas do zero
     .catch(err => console.error('Erro ao sincronizar banco:', err));
 
 
-// Iniciar servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:3000`);
-});
+//Iniciar servidor
+const PORT = 3000; 

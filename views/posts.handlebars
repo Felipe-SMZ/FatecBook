@@ -1,31 +1,82 @@
 <div class="home-container">
+    <!-- Logo e cabeçalho -->
     <img src="/img/logo.png" alt="FatecBook Logo" class="logo">
     <div class="home-header">
         <h1>Bem-vindo, {{user.nome}}</h1>
-        <a href="/logout" class="btn-small">Sair</a>
+        <a href="/logout" class="btn btn-small">Sair</a>
     </div>
 
+    <!-- Criar nova publicação -->
     <form action="/posts/create" method="POST" class="post-form">
         <textarea name="content" placeholder="O que você está pensando?" required></textarea>
-        <button type="submit" class="btn">Postar</button>
+        <button type="submit" class="btn btn-primary">Postar</button>
     </form>
 
     <h3>Postagens:</h3>
 
     {{#each posts}}
-    <div class="post">
-        <strong>{{this.User.nome}}</strong> - {{formatDate this.updatedAt}}
-        <p>{{{nl2br this.content}}}</p>
+    <div class="post-card">
+
+        <!-- Autor e data -->
+        <div class="post-header">
+            <strong>{{this.User.username}}</strong>
+            <span class="post-date"> • {{formatDate this.updatedAt}}</span>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="post-content">
+            <p>{{{nl2br this.content}}}</p>
+        </div>
+
+        <!-- Likes -->
+        <div class="post-likes">
+            <span>{{this.Likes.length}} curtidas</span>
+            <form action="/posts/{{this.id}}/like" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-small btn-like">
+                    {{#if this.likedByUser}}Descurtir{{else}}Curtir{{/if}}
+                </button>
+            </form>
+        </div>
+
+        <!-- Comentários -->
+        <div class="comments">
+            <h4>Comentários ({{this.Comments.length}})</h4>
+            
+            <!-- Lista de comentários existentes -->
+            {{#each this.Comments}}
+            <div class="comment">
+                <strong>{{this.User.username}}:</strong> {{this.content}}
+                <span class="comment-date">{{formatDate this.createdAt}}</span>
+            </div>
+            {{else}}
+            <p class="no-comments">Seja o primeiro a comentar!</p>
+            {{/each}}
+        </div>
+
+        <!-- Formulário para comentar (fora do loop de comentários) -->
+        <form action="/posts/{{this.id}}/comment" method="POST" class="comment-form">
+            <input type="text" name="content" placeholder="Comente..." required>
+            <button type="submit" class="btn btn-small btn-primary">Enviar</button>
+        </form>
+
+        <!-- Ações (somente autor) -->
         {{#if (eq ../user.id this.UserId)}}
-        <br><br>
         <div class="post-actions">
-            <a href="/posts/{{this.id}}/edit"><button class="btn-small btn-danger">Editar</button></a>
+            <a href="/posts/{{this.id}}/edit" class="btn btn-small btn-warning">Editar</a>
             <form action="/posts/{{this.id}}/delete" method="POST" style="display:inline;">
-                <button type="submit" class="btn-small btn-danger">Excluir</button>
+                <button type="submit" class="btn btn-small btn-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir esta publicação?')">
+                    Excluir
+                </button>
             </form>
         </div>
         {{/if}}
     </div>
     {{/each}}
 
+    {{#unless posts}}
+    <div class="no-posts">
+        <p>Ainda não há postagens. Seja o primeiro a postar!</p>
+    </div>
+    {{/unless}}
 </div>
